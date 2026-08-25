@@ -53,7 +53,7 @@ The Ride is about those moments. The journeys that changed something within. And
 export const LAUNCH = {
   date: '23 August 2026',
   time: '5:00 PM',
-  venue: 'Rotary Club, Kuchimanchi Vari Agraharam',
+  venue: 'Sri Akondi Gopala Krishna Murthy Premises',
   guests: {
     president: {
       name: 'Sri Madhunapantula Satyanarayana Murthy Garu',
