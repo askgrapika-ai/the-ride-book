@@ -1,0 +1,132 @@
+.page {
+  min-height: calc(100vh - 72px);
+  padding: 3rem 0 6rem;
+}
+
+.inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.formWrapper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ratingSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ratingLabel {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.ratingText {
+  font-size: 0.875rem;
+  color: var(--color-gold);
+  font-weight: 500;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.recommendSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.recommendLabel {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.recommendOptions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.recommendOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.recommendOption:hover {
+  border-color: var(--color-border-gold);
+  color: var(--color-text-primary);
+}
+
+.recommendOption.selected {
+  border-color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--color-gold);
+}
+
+.radioHidden {
+  display: none;
+}
+
+.errorBox {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  color: #f87171;
+}
+
+/* Success State */
+.successState {
+  max-width: 480px;
+  margin: 6rem auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.successTitle {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.successDesc {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .formWrapper {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+  }
+}

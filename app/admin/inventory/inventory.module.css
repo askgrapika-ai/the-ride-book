@@ -1,0 +1,9 @@
+.statsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.statLabel { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-bottom: 0.5rem; }
+.statNote { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.25rem; }
+.stockCard {}
+.cardTitle { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.625rem; border-bottom: 1px solid var(--color-border); }
+.progressBar { height: 12px; background: var(--color-surface-2); border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem; }
+.progressFill { height: 100%; border-radius: 6px; transition: width var(--transition-slow); }
+.progressLabel { font-size: 0.8125rem; color: var(--color-text-muted); }
+@media (max-width: 640px) { .statsGrid { grid-template-columns: 1fr; } }

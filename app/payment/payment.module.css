@@ -1,0 +1,158 @@
+.page {
+  min-height: calc(100vh - 72px);
+  padding: 3rem 0 5rem;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+.reviewSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.paymentSection {
+  position: sticky;
+  top: 100px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reviewBook {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.addressReview {}
+
+.addressName {
+  font-weight: 600;
+  margin-bottom: 0.375rem;
+}
+
+.addressText {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.375rem;
+}
+
+.addressPhone {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.totalDisplay {
+  background: rgba(201, 168, 76, 0.06);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.totalLabel {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.totalAmount {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.paymentMethods {
+  margin-bottom: 0.5rem;
+}
+
+.paymentMethodsLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.paymentIcons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.paymentIcon {
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 0.125rem;
+}
+
+.paymentIconLabel {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+.errorBox {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  color: #f87171;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.secureTag {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 1rem;
+}
+
+.loadingSpinner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(8,8,8,0.3);
+  border-top-color: #080808;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
+  .paymentSection {
+    position: static;
+  }
+}
