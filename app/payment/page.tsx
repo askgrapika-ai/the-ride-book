@@ -73,12 +73,15 @@ export default function PaymentPage() {
       let createData;
       try {
         const textResponse = await createRes.clone().text();
+        if (!createRes.ok && textResponse.includes('Internal Server Error')) {
+            throw new Error(`Vercel 500 Error: Firebase Admin keys are likely formatted incorrectly. Check Vercel logs.`);
+        }
         if (!textResponse) {
-          throw new Error('Server crashed immediately. You are missing RAZORPAY_KEY_SECRET in Vercel.');
+          throw new Error('Server returned an empty response. Check Vercel Runtime Logs.');
         }
         createData = await createRes.json();
       } catch (e: any) {
-        throw new Error(e.message || 'Server Error: Missing Razorpay Secret Key in Vercel.');
+        throw new Error(e.message || 'Server Error: Failed to parse response.');
       }
 
       if (!createRes.ok) {

@@ -4,7 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
-import { adminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { FieldValue, Transaction } from 'firebase-admin/firestore';
 import { BOOK } from '@/lib/constants';
 import { calculateShipping } from '@/lib/shipping';
@@ -57,8 +57,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Generate order number using atomic counter
-    const counterRef = adminDb.collection('counters').doc('orderCounter');
-    const orderNumber = await adminDb.runTransaction(async (transaction: Transaction) => {
+    const counterRef = getAdminDb().collection('counters').doc('orderCounter');
+    const orderNumber = await getAdminDb().runTransaction(async (transaction: Transaction) => {
       const counterSnap = await transaction.get(counterRef);
       const currentCount = counterSnap.exists ? counterSnap.data()!.count : 0;
       const newCount = currentCount + 1;
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Save pending order to Firestore
-    const orderRef = adminDb.collection('orders').doc();
+    const orderRef = getAdminDb().collection('orders').doc();
     const now = Date.now();
     await orderRef.set({
       orderNumber,

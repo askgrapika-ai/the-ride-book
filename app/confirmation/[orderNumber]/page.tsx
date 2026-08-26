@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './confirmation.module.css';
-import { adminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { ORDER_STATUS, ESTIMATED_DELIVERY_DAYS } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 
@@ -12,7 +12,7 @@ export default async function ConfirmationPage({ params }: Props) {
   const { orderNumber } = await params;
 
   // Fetch from Firestore (server component)
-  const snapshot = await adminDb
+  const snapshot = await getAdminDb()
     .collection('orders')
     .where('orderNumber', '==', decodeURIComponent(orderNumber))
     .limit(1)

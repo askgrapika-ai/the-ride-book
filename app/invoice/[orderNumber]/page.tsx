@@ -1,4 +1,4 @@
-import { adminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { notFound } from 'next/navigation';
 import styles from './invoice.module.css';
 
@@ -10,7 +10,7 @@ export default async function InvoicePage({ params }: Props) {
   const { orderNumber } = await params;
 
   // Fetch from Firestore
-  const snapshot = await adminDb
+  const snapshot = await getAdminDb()
     .collection('orders')
     .where('orderNumber', '==', decodeURIComponent(orderNumber))
     .limit(1)
