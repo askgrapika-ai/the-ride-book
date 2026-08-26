@@ -1,13 +1,17 @@
 import { config } from 'dotenv';
 config({ path: '.env.local' });
-import { adminDb, adminAuth } from './lib/firebase-admin';
+import { getAdminDb, getAdminAuth } from './lib/firebase-admin';
+import type { UserRecord } from 'firebase-admin/auth';
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 async function checkAdmins() {
+  const adminDb = getAdminDb();
+  const adminAuth = getAdminAuth();
   console.log('--- Checking Firebase Auth Users ---');
-  let authUid = null;
+  let authUid: string | null = null;
   try {
     const listUsersResult = await adminAuth.listUsers();
-    listUsersResult.users.forEach((userRecord) => {
+    listUsersResult.users.forEach((userRecord: UserRecord) => {
       console.log(`User: ${userRecord.email}`);
       console.log(`UID: ${userRecord.uid}`);
       if (userRecord.email === 'askgrapika@gmail.com') {
@@ -24,7 +28,7 @@ async function checkAdmins() {
     if (adminsSnapshot.empty) {
       console.log('No documents found in the "admins" collection!');
     } else {
-      adminsSnapshot.forEach((doc) => {
+      adminsSnapshot.forEach((doc: QueryDocumentSnapshot) => {
         console.log(`Document ID: ${doc.id}`);
         console.log(`Document Data:`, doc.data());
       });

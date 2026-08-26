@@ -5,7 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { getAdminDb } from '@/lib/firebase-admin';
-import { FieldValue, Transaction } from 'firebase-admin/firestore';
+import { Transaction } from 'firebase-admin/firestore';
 import { BOOK } from '@/lib/constants';
 import { calculateShipping } from '@/lib/shipping';
 
@@ -47,7 +47,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Check stock
-    const bookRef = adminDb.collection('book').doc('the-ride');
+    const db = getAdminDb();
+    const bookRef = db.collection('book').doc('the-ride');
     const bookSnap = await bookRef.get();
     if (bookSnap.exists) {
       const bookData = bookSnap.data()!;

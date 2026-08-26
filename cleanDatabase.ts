@@ -1,8 +1,10 @@
 import { config } from 'dotenv';
 config({ path: '.env.local' });
-import { adminDb } from './lib/firebase-admin';
+import { getAdminDb } from './lib/firebase-admin';
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 async function cleanDatabase() {
+  const adminDb = getAdminDb();
   console.log('--- Starting Database Cleanup ---');
 
   // 1. Delete all orders
@@ -12,7 +14,7 @@ async function cleanDatabase() {
       console.log('No orders to delete.');
     } else {
       const batch = adminDb.batch();
-      ordersSnapshot.docs.forEach((doc) => {
+      ordersSnapshot.docs.forEach((doc: QueryDocumentSnapshot) => {
         batch.delete(doc.ref);
       });
       await batch.commit();
@@ -26,11 +28,11 @@ async function cleanDatabase() {
   try {
     const bookRef = adminDb.collection('book').doc('the-ride');
     const bookSnap = await bookRef.get();
-    
+
     if (bookSnap.exists) {
       const data = bookSnap.data();
       const totalStock = data?.totalStock || 300;
-      
+
       await bookRef.update({
         availableStock: totalStock,
         soldCount: 0
