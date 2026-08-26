@@ -11,12 +11,11 @@ export default function OrderPage() {
   const [quantity, setQuantity] = useState(1);
 
   const bookPrice = BOOK.price;
-  const deliveryCharge = BOOK.deliveryCharge;
-  const total = bookPrice * quantity + deliveryCharge;
+  const total = bookPrice * quantity;
 
   const handleContinue = () => {
     // Store order state in sessionStorage for the checkout flow
-    sessionStorage.setItem('orderState', JSON.stringify({ quantity, bookPrice, deliveryCharge, total, totalAmount: total }));
+    sessionStorage.setItem('orderState', JSON.stringify({ quantity, bookPrice, deliveryCharge: 0, total, totalAmount: total }));
     router.push('/checkout');
   };
 
@@ -92,12 +91,12 @@ export default function OrderPage() {
               </div>
               <div className="order-summary-row">
                 <span>Delivery Charge</span>
-                <span style={{ color: 'var(--color-gold)' }}>
-                  {deliveryCharge === 0 ? 'Free' : `₹${deliveryCharge}`}
+                <span style={{ color: 'var(--color-gold)', fontSize: '0.875rem' }}>
+                  Calculated at checkout
                 </span>
               </div>
               <div className="order-summary-row total">
-                <span>Total</span>
+                <span>Subtotal</span>
                 <span>₹{total}</span>
               </div>
             </div>

@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { adminDb } from '@/lib/firebase-admin';
 import { FieldValue, Transaction } from 'firebase-admin/firestore';
+import { BOOK } from '@/lib/constants';
 
 const razorpay = new Razorpay({
   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
@@ -36,9 +37,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Verify price on server side (don't trust frontend price)
-    const BOOK_PRICE = parseInt(process.env.NEXT_PUBLIC_BOOK_PRICE || '150');
-    const DELIVERY_CHARGE = parseInt(process.env.NEXT_PUBLIC_DELIVERY_CHARGE || '0');
-    const expectedTotal = BOOK_PRICE * quantity + DELIVERY_CHARGE;
+    const BOOK_PRICE = BOOK.price;
+    const expectedDelivery = address.state === 'Telangana' ? BOOK.deliveryChargeTelangana : BOOK.deliveryChargeOther;
+    const expectedTotal = BOOK_PRICE * quantity + expectedDelivery;
 
     if (totalAmount !== expectedTotal) {
       return NextResponse.json({ error: 'Price mismatch. Please refresh and try again.' }, { status: 400 });
@@ -88,7 +89,7 @@ export async function POST(req: NextRequest) {
       address,
       quantity,
       bookPrice: BOOK_PRICE,
-      deliveryCharge: DELIVERY_CHARGE,
+      deliveryCharge: expectedDelivery,
       totalAmount: expectedTotal,
       paymentStatus: 'PENDING',
       orderStatus: 'ORDER_PLACED',

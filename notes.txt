@@ -21,3 +21,7 @@ const app = initializeApp(firebaseConfig);
 Key Type,Value
 Test Key ID,rzp_test_TTxfetOGchX7wg
 Test Key Secret,wWpHhvSa5ys8N2KUx1H199Uh
+
+//live - razorpay details
+key_id,key_secret
+rzp_live_TUJ3kPQkDUoI4F,u3kc32C0jXEs7QEpRJqz1qUc

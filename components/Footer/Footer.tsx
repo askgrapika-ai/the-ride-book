@@ -17,10 +17,10 @@ export default function Footer() {
           <div className={styles.links}>
             <div className={styles.linkGroup}>
               <h4 className={styles.linkGroupTitle}>Navigate</h4>
-              <a href="/#about">About the Book</a>
-              <a href="/#book">Book Details</a>
-              <a href="/#launch">Book Launch</a>
-              <a href="/#reviews">Reviews</a>
+              <Link href="/#about">About the Book</Link>
+              <Link href="/#book">Book Details</Link>
+              <Link href="/#launch">Book Launch</Link>
+              <Link href="/#reviews">Reviews</Link>
             </div>
             <div className={styles.linkGroup}>
               <h4 className={styles.linkGroupTitle}>Order</h4>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './checkout.module.css';
 import { CheckoutForm, CartState } from '@/lib/types';
+import { BOOK } from '@/lib/constants';
 
 const INDIAN_STATES = [
   'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -81,12 +82,22 @@ export default function CheckoutPage() {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
+    // Calculate dynamic delivery
+    const delivery = form.state === 'Telangana' ? BOOK.deliveryChargeTelangana : BOOK.deliveryChargeOther;
+    const finalTotal = orderState.bookPrice * orderState.quantity + delivery;
+    const updatedOrderState = { ...orderState, deliveryCharge: delivery, total: finalTotal, totalAmount: finalTotal };
+
     // Save checkout data
+    sessionStorage.setItem('orderState', JSON.stringify(updatedOrderState));
     sessionStorage.setItem('checkoutForm', JSON.stringify(form));
     router.push('/payment');
   };
 
   if (!orderState) return null;
+
+  // Live calculation for UI
+  const deliveryCharge = form.state ? (form.state === 'Telangana' ? BOOK.deliveryChargeTelangana : BOOK.deliveryChargeOther) : 0;
+  const currentTotal = orderState.bookPrice * orderState.quantity + deliveryCharge;
 
   const field = (
     name: keyof CheckoutForm,
@@ -227,12 +238,12 @@ export default function CheckoutPage() {
               <div className="order-summary-row">
                 <span>Delivery</span>
                 <span style={{ color: 'var(--color-gold)' }}>
-                  {orderState.deliveryCharge === 0 ? 'Free' : `₹${orderState.deliveryCharge}`}
+                  {form.state ? `₹${deliveryCharge}` : <span style={{fontSize: '0.875rem'}}>Select State</span>}
                 </span>
               </div>
               <div className="order-summary-row total">
                 <span>Total</span>
-                <span>₹{orderState.total}</span>
+                <span>₹{currentTotal}</span>
               </div>
             </div>
 

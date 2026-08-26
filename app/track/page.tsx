@@ -37,12 +37,7 @@ function TrackForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const preloaded = searchParams.get('order');
-    if (preloaded) {
-      handleSearch(preloaded);
-    }
-  }, []);
+
 
   const handleSearch = async (orderNum?: string) => {
     const query = (orderNum || input).trim().toUpperCase();
@@ -64,6 +59,13 @@ function TrackForm() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const preloaded = searchParams.get('order');
+    if (preloaded) {
+      handleSearch(preloaded);
+    }
+  }, []);
 
   const currentStatusIndex = order
     ? STATUS_STEPS.indexOf(order.orderStatus as OrderStatusKey)
