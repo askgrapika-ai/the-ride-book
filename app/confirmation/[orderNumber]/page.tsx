@@ -147,6 +147,9 @@ export default async function ConfirmationPage({ params }: Props) {
               </div>
 
               <div className={styles.ctaButtons}>
+                <Link href={`/invoice/${order.orderNumber}`} target="_blank" className="btn btn-primary w-full" style={{ justifyContent: 'center', background: '#333', borderColor: '#333', color: 'white', marginBottom: '10px' }} id="invoice-btn">
+                  Download Invoice
+                </Link>
                 <Link href={`/track?order=${order.orderNumber}`} className="btn btn-primary w-full" style={{ justifyContent: 'center' }} id="track-order-btn">
                   Track My Order
                 </Link>

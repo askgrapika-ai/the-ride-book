@@ -108,7 +108,10 @@ export default function AdminOrdersPage() {
                         {ORDER_STATUS[order.orderStatus as OrderStatusKey] || order.orderStatus as string}
                       </span>
                     </td>
-                    <td>
+                    <td style={{ display: 'flex', gap: '8px' }}>
+                      <Link href={`/invoice/${order.orderNumber as string}`} target="_blank" className="btn btn-outline btn-sm" title="Print Invoice">
+                        🖨️
+                      </Link>
                       <Link href={`/admin/orders/${order.id as string}`} className="btn btn-ghost btn-sm">
                         View →
                       </Link>

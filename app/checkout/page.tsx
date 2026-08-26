@@ -6,6 +6,7 @@ import Link from 'next/link';
 import styles from './checkout.module.css';
 import { CheckoutForm, CartState } from '@/lib/types';
 import { BOOK } from '@/lib/constants';
+import { calculateShipping } from '@/lib/shipping';
 
 const INDIAN_STATES = [
   'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -80,10 +81,10 @@ export default function CheckoutPage() {
     setTouched(allTouched);
     const validationErrors = validate(form);
     setErrors(validationErrors);
-    if (Object.keys(validationErrors).length > 0) return;
+    if (Object.keys(validationErrors).length > 0 || !orderState) return;
 
     // Calculate dynamic delivery
-    const delivery = form.state === 'Telangana' ? BOOK.deliveryChargeTelangana : BOOK.deliveryChargeOther;
+    const delivery = calculateShipping(form.state, orderState.quantity);
     const finalTotal = orderState.bookPrice * orderState.quantity + delivery;
     const updatedOrderState = { ...orderState, deliveryCharge: delivery, total: finalTotal, totalAmount: finalTotal };
 
@@ -96,7 +97,7 @@ export default function CheckoutPage() {
   if (!orderState) return null;
 
   // Live calculation for UI
-  const deliveryCharge = form.state ? (form.state === 'Telangana' ? BOOK.deliveryChargeTelangana : BOOK.deliveryChargeOther) : 0;
+  const deliveryCharge = calculateShipping(form.state, orderState.quantity);
   const currentTotal = orderState.bookPrice * orderState.quantity + deliveryCharge;
 
   const field = (

@@ -1,0 +1,155 @@
+.page {
+  background: white;
+  color: black;
+  min-height: 100vh;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.invoiceContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.orderNumber {
+  color: #666;
+  font-size: 14px;
+}
+
+.companyInfo h2 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.companyInfo p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.section h3 {
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.section p {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.table th {
+  background: #f9f9f9;
+  font-weight: 600;
+  color: #333;
+}
+
+.table .right {
+  text-align: right;
+}
+
+.summary {
+  width: 300px;
+  float: right;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: bold;
+  border-top: 2px solid #eee;
+  margin-top: 8px;
+}
+
+.footer {
+  clear: both;
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 12px;
+}
+
+/* Print Styles */
+@media print {
+  .page {
+    padding: 0;
+  }
+  .invoiceContainer {
+    border: none;
+    padding: 0;
+  }
+  .noPrint {
+    display: none;
+  }
+}
+
+.printBtn {
+  display: block;
+  width: 200px;
+  margin: 0 auto 30px auto;
+  padding: 12px 24px;
+  background: #333;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}

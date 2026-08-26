@@ -148,7 +148,7 @@ export default function HomePage() {
                   <tr>
                     <td className={styles.infoKey}>Delivery Charge</td>
                     <td className={styles.infoVal}>
-                      {BOOK.deliveryCharge === 0 ? 'Free (based on location)' : `₹${BOOK.deliveryCharge} (Flat Rate India)`}
+                      ₹{BOOK.deliveryChargeTelangana} (Telangana) · ₹{BOOK.deliveryChargeOther} (Other states)
                     </td>
                   </tr>
                 </tbody>

@@ -7,6 +7,7 @@ import Razorpay from 'razorpay';
 import { adminDb } from '@/lib/firebase-admin';
 import { FieldValue, Transaction } from 'firebase-admin/firestore';
 import { BOOK } from '@/lib/constants';
+import { calculateShipping } from '@/lib/shipping';
 
 const razorpay = new Razorpay({
   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     // Verify price on server side (don't trust frontend price)
     const BOOK_PRICE = BOOK.price;
-    const expectedDelivery = address.state === 'Telangana' ? BOOK.deliveryChargeTelangana : BOOK.deliveryChargeOther;
+    const expectedDelivery = calculateShipping(address.state, quantity);
     const expectedTotal = BOOK_PRICE * quantity + expectedDelivery;
 
     if (totalAmount !== expectedTotal) {

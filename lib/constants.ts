@@ -9,8 +9,6 @@ export const BOOK = {
   author: 'Pavan Akondi',
   authorTelugu: 'పవన్ అకొండి',
   price: 150,
-  deliveryChargeTelangana: 77,
-  deliveryChargeOther: 83,
   pages: 137,
   language: 'Telugu',
   publisher: 'Eswari Publications',
