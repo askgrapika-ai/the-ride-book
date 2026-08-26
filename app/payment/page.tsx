@@ -70,9 +70,20 @@ export default function PaymentPage() {
         }),
       });
 
-      const createData = await createRes.json();
-      if (!createRes.ok) throw new Error(createData.error || 'Failed to create order');
+      let createData;
+      try {
+        const textResponse = await createRes.clone().text();
+        if (!textResponse) {
+          throw new Error('Server crashed immediately. You are missing RAZORPAY_KEY_SECRET in Vercel.');
+        }
+        createData = await createRes.json();
+      } catch (e: any) {
+        throw new Error(e.message || 'Server Error: Missing Razorpay Secret Key in Vercel.');
+      }
 
+      if (!createRes.ok) {
+        throw new Error(createData?.error || 'Failed to create order');
+      }
       const { razorpayOrderId, firestoreOrderId } = createData;
 
       // Step 2: Open Razorpay checkout
