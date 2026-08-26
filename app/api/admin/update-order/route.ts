@@ -1,17 +1,16 @@
 // app/api/admin/update-order/route.ts
 // Admin-only: Update order status, courier info, estimated delivery
-
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb, adminAuth } from '@/lib/firebase-admin';
+import { getAdminDb, getAdminAuth } from '@/lib/firebase-admin';
 
 async function verifyAdmin(req: NextRequest): Promise<boolean> {
   const authHeader = req.headers.get('Authorization');
   if (!authHeader?.startsWith('Bearer ')) return false;
   const token = authHeader.slice(7);
   try {
-    const decoded = await adminAuth.verifyIdToken(token);
+    const decoded = await getAdminAuth().verifyIdToken(token);
     // Check if user is in the admin collection
-    const adminDoc = await adminDb.collection('admins').doc(decoded.uid).get();
+    const adminDoc = await getAdminDb().collection('admins').doc(decoded.uid).get();
     return adminDoc.exists;
   } catch {
     return false;
@@ -47,7 +46,7 @@ export async function POST(req: NextRequest) {
 
     safeUpdates.updatedAt = new Date().toISOString();
 
-    await adminDb.collection('orders').doc(orderId).update(safeUpdates);
+    await getAdminDb().collection('orders').doc(orderId).update(safeUpdates);
 
     return NextResponse.json({ success: true });
   } catch (error) {

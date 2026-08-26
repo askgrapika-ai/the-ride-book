@@ -4,7 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { adminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { FieldValue, Transaction } from 'firebase-admin/firestore';
 
 export async function POST(req: NextRequest) {
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Fetch the order document
-    const orderRef = adminDb.collection('orders').doc(firestoreOrderId);
+    const orderRef = getAdminDb().collection('orders').doc(firestoreOrderId);
     const orderSnap = await orderRef.get();
 
     if (!orderSnap.exists) {
@@ -46,9 +46,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Update order as PAID in a transaction (also decrement stock)
-    const bookRef = adminDb.collection('book').doc('the-ride');
+    const bookRef = getAdminDb().collection('book').doc('the-ride');
 
-    await adminDb.runTransaction(async (transaction: Transaction) => {
+    await getAdminDb().runTransaction(async (transaction: Transaction) => {
       transaction.update(orderRef, {
         paymentStatus: 'PAID',
         orderStatus: 'PAYMENT_CONFIRMED',

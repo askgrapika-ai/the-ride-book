@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
-import { adminAuth, adminDb } from '@/lib/firebase-admin';
+import { getAdminAuth, getAdminDb } from '@/lib/firebase-admin';
 
 export async function GET() {
   try {
     const email = 'askgrapika@gmail.com';
     
     // 1. Get the user by email
-    const userRecord = await adminAuth.getUserByEmail(email);
+    const userRecord = await getAdminAuth().getUserByEmail(email);
     const uid = userRecord.uid;
 
     // 2. Write exactly that UID into the admins collection
-    await adminDb.collection('admins').doc(uid).set({
+    await getAdminDb().collection('admins').doc(uid).set({
       email: email,
       role: 'superadmin',
       createdAt: new Date().toISOString()

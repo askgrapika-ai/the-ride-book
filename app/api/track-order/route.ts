@@ -2,7 +2,7 @@
 // Public endpoint for customers to track their order by order number
 
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 
 export async function GET(req: NextRequest) {
   try {
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Query Firestore for the order
-    const snapshot = await adminDb
+    const snapshot = await getAdminDb()
       .collection('orders')
       .where('orderNumber', '==', orderNumber)
       .limit(1)
