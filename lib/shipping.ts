@@ -13,24 +13,19 @@ export function calculateShipping(state: string, quantity: number): number {
   
   let baseRate = 0;
   
+  // Since 1 book is 232g, the minimum base rate is always the 201g-500g slab.
   if (totalWeight <= 500) {
-    baseRate = isAndhraPradesh ? 65 : 70;
-  } else if (totalWeight <= 1000) {
-    baseRate = isAndhraPradesh ? 91 : 106;
-  } else if (totalWeight <= 1500) {
-    baseRate = isAndhraPradesh ? 117 : 142;
-  } else if (totalWeight <= 2000) {
-    baseRate = isAndhraPradesh ? 160 : 198;
-  } else if (totalWeight <= 3000) {
-    baseRate = isAndhraPradesh ? 219 : 277;
-  } else if (totalWeight <= 4000) {
-    baseRate = isAndhraPradesh ? 268 : 344;
-  } else if (totalWeight <= 5000) {
-    baseRate = isAndhraPradesh ? 324 : 420;
+    baseRate = isAndhraPradesh ? 50 : 60;
   } else {
-    // Over 5kg logic (base price for 5kg + extra per additional kg)
-    const extraKg = Math.ceil((totalWeight - 5000) / 1000);
-    baseRate = isAndhraPradesh ? (324 + extraKg * 50) : (420 + extraKg * 70);
+    // Base rate for the first 500g
+    baseRate = isAndhraPradesh ? 50 : 60;
+    
+    // Additional 500g (or part thereof)
+    const extraWeight = totalWeight - 500;
+    const extraChunks = Math.ceil(extraWeight / 500);
+    
+    const extraRatePerChunk = isAndhraPradesh ? 15 : 30;
+    baseRate += (extraChunks * extraRatePerChunk);
   }
 
   // Add 18% GST and round to nearest integer
