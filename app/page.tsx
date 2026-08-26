@@ -148,7 +148,7 @@ export default function HomePage() {
                   <tr>
                     <td className={styles.infoKey}>Delivery Charge</td>
                     <td className={styles.infoVal}>
-                      ₹{BOOK.deliveryChargeTelangana} (Telangana) · ₹{BOOK.deliveryChargeOther} (Other states)
+                      Calculated at checkout
                     </td>
                   </tr>
                 </tbody>
